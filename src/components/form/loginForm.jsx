@@ -9,7 +9,6 @@ import {
     Title2,
     FormArea,
     InputArea,
-    SelectArea,
     Label,
     Text1,
     Button,
@@ -17,7 +16,7 @@ import {
 } from './form.styled';
 import { toast } from 'react-toastify';
 
-export function LoginForm() {
+export function LoginForm({ user }) {
     const navigate = useNavigate();
 
     const formSchema = yup.object().shape({
@@ -44,10 +43,12 @@ export function LoginForm() {
                     token: data.data.token,
                 };
                 localStorage.setItem('@KenzieHub', JSON.stringify(temp));
+                user = temp;
                 toast.success('Logado com sucesso!');
                 navigate('/dashboard');
             })
             .catch((err) => {
+                console.log(err);
                 toast.error('Email ou senha inválido');
             });
     };

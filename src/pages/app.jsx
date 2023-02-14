@@ -6,51 +6,41 @@ import { GlobalStyle } from '../styles/globalStyles';
 import { LoginPage } from './login/login';
 import { RegisterPage } from './register/register';
 import { DashboardPage } from './Dashboard/dashboard';
-import { useState } from 'react';
 import { useEffect } from 'react';
+import { handleToken } from '../services/api';
 
 export function App() {
-    const [isLogged, setIsLogged] = useState(false);
+    let user;
 
-    useEffect(function () {
+    function testIfLogged() {
         let localData = localStorage.getItem('@KenzieHub');
         localData = localData ? JSON.parse(localData) : false;
-        localData ? setIsLogged(true) : null;
-    }, []);
+        console.log(localData);
+        localData
+            ? handleToken(localData.id)
+                ? (user = localData)
+                : null
+            : null;
+    }
+
+    useEffect(() => {
+        testIfLogged();
+    }, [user]);
+
+    console.log(user);
 
     return (
         <>
             <GlobalStyle />
 
             <Routes>
-                <Route
-                    path="/login"
-                    element={
-                        <LoginPage
-                            setIsLogged={setIsLogged}
-                            isLogged={isLogged}
-                        />
-                    }
-                />
+                <Route path="/login" element={<LoginPage user={user} />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route
                     path="/dashboard"
-                    element={
-                        <DashboardPage
-                            setIsLogged={setIsLogged}
-                            isLogged={isLogged}
-                        />
-                    }
+                    element={<DashboardPage user={user} />}
                 />
-                <Route
-                    path="*"
-                    element={
-                        <LoginPage
-                            setIsLogged={setIsLogged}
-                            isLogged={isLogged}
-                        />
-                    }
-                />
+                <Route path="*" element={<LoginPage user={user} />} />
             </Routes>
 
             <ToastContainer
