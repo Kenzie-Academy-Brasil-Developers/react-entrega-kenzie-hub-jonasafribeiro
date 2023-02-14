@@ -13,6 +13,7 @@ import {
     Label,
     Text1,
     Button,
+    Text2,
 } from './form.styled';
 import { toast } from 'react-toastify';
 
@@ -63,7 +64,7 @@ export function LoginForm() {
                 placeholder="Digite aqui seu email"
                 {...register('email')}
             />
-            <Text1>{errors.email?.message}</Text1>
+            <Text2>{errors.email?.message}</Text2>
 
             <Label htmlFor="password">Senha</Label>
             <InputArea
@@ -73,7 +74,7 @@ export function LoginForm() {
                 placeholder="Digite aqui sua senha"
                 {...register('password')}
             />
-            <Text1>{errors.password?.message}</Text1>
+            <Text2>{errors.password?.message}</Text2>
 
             <Button buttonColor="primary" type="submit">
                 Entrar

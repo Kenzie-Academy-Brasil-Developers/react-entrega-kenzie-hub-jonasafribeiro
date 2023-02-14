@@ -13,6 +13,7 @@ import {
     Label,
     Text1,
     Button,
+    Text2,
 } from './form.styled';
 import { toast } from 'react-toastify';
 YupPassword(yup);
@@ -79,7 +80,7 @@ export function RegisterForm() {
                 placeholder="Digite aqui seu nome"
                 {...register('name')}
             />
-            <Text1>{errors.name?.message}</Text1>
+            <Text2>{errors.name?.message}</Text2>
 
             <Label htmlFor="email">Email</Label>
             <InputArea
@@ -87,7 +88,7 @@ export function RegisterForm() {
                 placeholder="Digite aqui seu email"
                 {...register('email')}
             />
-            <Text1>{errors.email?.message}</Text1>
+            <Text2>{errors.email?.message}</Text2>
 
             <Label htmlFor="password">Senha</Label>
             <InputArea
@@ -97,7 +98,7 @@ export function RegisterForm() {
                 placeholder="Digite aqui sua senha"
                 {...register('password')}
             />
-            <Text1>{errors.password?.message}</Text1>
+            <Text2>{errors.password?.message}</Text2>
 
             <Label htmlFor="confirmPassword">Confirmar Senha</Label>
             <InputArea
@@ -107,7 +108,7 @@ export function RegisterForm() {
                 placeholder="Digite novamente sua senha"
                 {...register('confirmPassword')}
             />
-            <Text1>{errors.confirmPassword?.message}</Text1>
+            <Text2>{errors.confirmPassword?.message}</Text2>
 
             <Label htmlFor="bio">Bio</Label>
             <InputArea
@@ -116,7 +117,7 @@ export function RegisterForm() {
                 placeholder="Fale sobre você"
                 {...register('bio')}
             />
-            <Text1>{errors.bio?.message}</Text1>
+            <Text2>{errors.bio?.message}</Text2>
 
             <Label htmlFor="contact">Contato</Label>
             <InputArea
@@ -125,7 +126,7 @@ export function RegisterForm() {
                 placeholder="Opção de contato"
                 {...register('contact')}
             />
-            <Text1>{errors.contact?.message}</Text1>
+            <Text2>{errors.contact?.message}</Text2>
 
             <Label htmlFor="course_module">Selecionar módulo</Label>
             <SelectArea id="course_module" {...register('course_module')}>

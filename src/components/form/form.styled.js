@@ -52,6 +52,13 @@ export const Text1 = styled.p`
     text-align: center;
 `
 
+export const Text2 = styled.p`
+    color: var(--color-Negative);
+    font-size: 0.75rem;
+    font-weight: 400;
+    text-align: center;
+`
+
 export const Button = styled.button`
     padding: 10px;
     color: #FFFFFF;
