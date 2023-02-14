@@ -80,7 +80,7 @@ export function RegisterForm() {
                 placeholder="Digite aqui seu nome"
                 {...register('name')}
             />
-            <Text2>{errors.name?.message}</Text2>
+            {errors.name ? <Text2>{errors.name?.message}</Text2> : null}
 
             <Label htmlFor="email">Email</Label>
             <InputArea
@@ -88,7 +88,7 @@ export function RegisterForm() {
                 placeholder="Digite aqui seu email"
                 {...register('email')}
             />
-            <Text2>{errors.email?.message}</Text2>
+            {errors.email ? <Text2>{errors.email?.message}</Text2> : null}
 
             <Label htmlFor="password">Senha</Label>
             <InputArea
@@ -98,7 +98,7 @@ export function RegisterForm() {
                 placeholder="Digite aqui sua senha"
                 {...register('password')}
             />
-            <Text2>{errors.password?.message}</Text2>
+            {errors.password ? <Text2>{errors.password?.message}</Text2> : null}
 
             <Label htmlFor="confirmPassword">Confirmar Senha</Label>
             <InputArea
@@ -108,7 +108,9 @@ export function RegisterForm() {
                 placeholder="Digite novamente sua senha"
                 {...register('confirmPassword')}
             />
-            <Text2>{errors.confirmPassword?.message}</Text2>
+            {errors.confirmPassword ? (
+                <Text2>{errors.confirmPassword?.message}</Text2>
+            ) : null}
 
             <Label htmlFor="bio">Bio</Label>
             <InputArea
@@ -117,7 +119,7 @@ export function RegisterForm() {
                 placeholder="Fale sobre você"
                 {...register('bio')}
             />
-            <Text2>{errors.bio?.message}</Text2>
+            {errors.bio ? <Text2>{errors.bio?.message}</Text2> : null}
 
             <Label htmlFor="contact">Contato</Label>
             <InputArea
@@ -126,7 +128,7 @@ export function RegisterForm() {
                 placeholder="Opção de contato"
                 {...register('contact')}
             />
-            <Text2>{errors.contact?.message}</Text2>
+            {errors.contact ? <Text2>{errors.contact?.message}</Text2> : null}
 
             <Label htmlFor="course_module">Selecionar módulo</Label>
             <SelectArea id="course_module" {...register('course_module')}>

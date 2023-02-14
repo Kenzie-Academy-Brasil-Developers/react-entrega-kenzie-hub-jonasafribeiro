@@ -64,7 +64,7 @@ export function LoginForm() {
                 placeholder="Digite aqui seu email"
                 {...register('email')}
             />
-            <Text2>{errors.email?.message}</Text2>
+            {errors.email ? <Text2>{errors.email?.message}</Text2> : null}
 
             <Label htmlFor="password">Senha</Label>
             <InputArea
@@ -74,7 +74,7 @@ export function LoginForm() {
                 placeholder="Digite aqui sua senha"
                 {...register('password')}
             />
-            <Text2>{errors.password?.message}</Text2>
+            {errors.password ? <Text2>{errors.password?.message}</Text2> : null}
 
             <Button buttonColor="primary" type="submit">
                 Entrar
