@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
+    @import url('https://fonts.googleapis.com/css2?family=Inter');
     :root {
         --color-primary: #ff577f;
         --color-primary-Focus: #ff427f;
@@ -150,6 +151,9 @@ export const GlobalStyle = createGlobalStyle`
     }
     button{
         cursor: pointer;
+    }
+    *{
+        font-family: 'Inter';
     }
 
 `

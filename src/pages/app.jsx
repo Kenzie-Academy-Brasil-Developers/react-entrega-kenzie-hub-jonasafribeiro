@@ -15,7 +15,6 @@ export function App() {
     function testIfLogged() {
         let localData = localStorage.getItem('@KenzieHub');
         localData = localData ? JSON.parse(localData) : false;
-        console.log(localData);
         localData
             ? handleToken(localData.id)
                 ? (user = localData)
@@ -26,8 +25,6 @@ export function App() {
     useEffect(() => {
         testIfLogged();
     }, [user]);
-
-    console.log(user);
 
     return (
         <>

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const api = axios.create({
     baseURL: "https://kenziehub.herokuapp.com",
@@ -7,6 +8,6 @@ export const api = axios.create({
 
 export const handleToken = (id) => {
     return api.get("/users/" + id)
-        .then(data => { console.log(data); return true })
-        .catch(err => { console.log(err); localStorage.clear(); return false })
+        .then(data => { return true })
+        .catch(err => { localStorage.clear(); return false })
 }

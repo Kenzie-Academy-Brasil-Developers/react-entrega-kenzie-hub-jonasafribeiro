@@ -48,7 +48,6 @@ export function LoginForm({ user }) {
                 navigate('/dashboard');
             })
             .catch((err) => {
-                console.log(err);
                 toast.error('Email ou senha inválido');
             });
     };
