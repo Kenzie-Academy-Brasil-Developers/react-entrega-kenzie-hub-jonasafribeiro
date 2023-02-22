@@ -1,5 +1,16 @@
 import styled from "styled-components";
 
+export const Title3 = styled.h3`
+    color: var(--color-grey0);
+    margin: 130px 0;
+    font-size: 1.12rem;
+    font-weight: 700;
+    max-width: 45%;
+    text-align: center;
+    display: flex;
+    align-self: center;
+`
+
 export const Title2 = styled.h2`
     color: var(--color-grey0);
     font-size: 1.12rem;
@@ -58,6 +69,7 @@ export const TechList = styled.ul`
     padding: 22px;
     gap: 14px;
     max-width: 700px;
+    min-height: 200px;
     display: flex;
     flex-direction: column;
     background-color: var(--color-grey3);

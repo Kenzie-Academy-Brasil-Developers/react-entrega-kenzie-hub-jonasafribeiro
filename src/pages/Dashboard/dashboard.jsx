@@ -9,6 +9,7 @@ import {
     Main,
     TechList,
     Button,
+    Title3,
 } from './dashboard.styled';
 import { UserContext } from '../../provider/UserContext';
 import { Modal } from './Components/Modal/modal';
@@ -16,7 +17,7 @@ import { ListItem } from './Components/ListItem/listItem';
 
 export function DashboardPage() {
     const { userData, setUserData } = useContext(UserContext);
-    const [modal, setModal] = useState(0);
+    const [modal, setModal] = useState(false);
 
     const handleOpenCreateModal = () => {
         setModal('createTech');
@@ -44,15 +45,19 @@ export function DashboardPage() {
                         </Button>
                     </Container3>
                     <TechList>
-                        {userData.techs?.map(({ title, status, id }) => (
-                            <ListItem
-                                handleClick={setModal}
-                                title={title}
-                                text={status}
-                                token={id}
-                                key={id}
-                            />
-                        ))}
+                        {userData?.techs > 0 ? (
+                            userData.techs?.map(({ title, status, id }) => (
+                                <ListItem
+                                    handleClick={setModal}
+                                    title={title}
+                                    text={status}
+                                    token={id}
+                                    key={id}
+                                />
+                            ))
+                        ) : (
+                            <Title3>Nenhuma tecnologia cadastrada</Title3>
+                        )}
                     </TechList>
                 </Container2>
             </Main>
