@@ -141,9 +141,11 @@ export function Modal({ setModal, type }) {
                         <option value="Intermediário">Intermediário</option>
                         <option value="Avançado">Avançado</option>
                     </SelectArea>
-                    {errors.title && (
+
+                    {errors.status && (
                         <ErrorMessage>{errors.status?.message}</ErrorMessage>
                     )}
+
                     {type === 'createTech' ? (
                         <Button buttonType="register" type="submit">
                             Cadastrar Tecnologia
