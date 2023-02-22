@@ -19,14 +19,16 @@ import {
 } from './moda.styled';
 import { UserContext } from '../../../../provider/UserContext';
 import { toast } from 'react-toastify';
+import { useState } from 'react';
 
 export function Modal({ setModal, type }) {
     const { setUpdateUser, updateUser } = useContext(UserContext);
+    const [module, setModule] = useState(type.text);
 
     const formSchema = !type.token
         ? yup.object().shape({
               title: yup.string().required('Título Obrigatório'),
-              status: yup.string().required(''),
+              status: yup.string().required('Escolha uma das opções'),
           })
         : yup.object().shape({});
 
@@ -39,6 +41,7 @@ export function Modal({ setModal, type }) {
     });
 
     const regNewTech = async (formData) => {
+        console.log(formData);
         const token = JSON.parse(localStorage.getItem('@KenzieHub')).token;
         if (!type?.token) {
             try {
@@ -64,8 +67,10 @@ export function Modal({ setModal, type }) {
         } else {
             try {
                 if (
-                    formData.status === type.text &&
-                    (formData.title === type.title || formData.title === '')
+                    formData.status === type.text ||
+                    (formData.status === '' &&
+                        (formData.title === type.title ||
+                            formData.title === ''))
                 ) {
                     toast.error('Você deve alterar alguma informação antes');
                 } else {
@@ -127,15 +132,18 @@ export function Modal({ setModal, type }) {
 
                     <Label htmlFor="status">Selecionar status</Label>
                     <SelectArea
-                        value={type.text || 'Iniciante'}
                         name="status"
                         id="status"
                         {...register('status')}
                     >
-                        <option>Iniciante</option>
-                        <option>Intermediário</option>
-                        <option>Avançado</option>
+                        <option value="">Escolha uma opção</option>
+                        <option value="Iniciante">Iniciante</option>
+                        <option value="Intermediário">Intermediário</option>
+                        <option value="Avançado">Avançado</option>
                     </SelectArea>
+                    {errors.title && (
+                        <ErrorMessage>{errors.status?.message}</ErrorMessage>
+                    )}
                     {type === 'createTech' ? (
                         <Button buttonType="register" type="submit">
                             Cadastrar Tecnologia
