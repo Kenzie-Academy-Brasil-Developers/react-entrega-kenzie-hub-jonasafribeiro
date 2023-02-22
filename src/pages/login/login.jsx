@@ -5,7 +5,7 @@ import { LoginForm } from '../../components/form';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../provider/UserContext';
 
-export function LoginPage({ user }) {
+export function LoginPage({ userData, user }) {
     const navigate = useNavigate();
     useEffect(() => {
         if (user) {

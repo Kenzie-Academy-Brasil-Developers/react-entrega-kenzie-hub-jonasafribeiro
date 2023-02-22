@@ -20,7 +20,6 @@ export const Text2 = styled.p`
 
 export const Container1 = styled.div`
     display: flex;
-    gap: calc(100% - 300px);
     align-items: center;
     justify-content: center;
     width: 100%;
@@ -46,4 +45,10 @@ export const Main = styled.main`
     background-color: var(--color-grey4);
     height: 100vh;
     align-items: center;
+`
+
+export const Container3 = styled.div`
+    width: 100%;
+    max-width: 400px;
+    display: flex;
 `

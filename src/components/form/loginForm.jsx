@@ -50,7 +50,7 @@ export function LoginForm({ user, callback }) {
                 setUserData({ loggedIn: true });
                 navigate('/dashboard');
             })
-            .catch((err) => {
+            .catch(() => {
                 toast.error('Email ou senha inválido');
             });
     };

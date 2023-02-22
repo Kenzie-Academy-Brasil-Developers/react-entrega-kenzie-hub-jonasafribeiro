@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import 'react-toastify/ReactToastify.css';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { GlobalStyle } from './styles/globalStyles';
 import { LoginPage } from './pages/login/login';
@@ -8,10 +8,13 @@ import { RegisterPage } from './pages/register/register';
 import { DashboardPage } from './pages/Dashboard/dashboard';
 import { useEffect } from 'react';
 import { handleToken } from './services/api';
-import { UserProvider } from './provider/UserContext';
+import { UserContext } from './provider/UserContext';
 import { ProtectedRoutes } from './pages/ProtectedRoutes';
 
 export function App() {
+    const { setUserData } = useContext(UserContext);
+    const navigate = useNavigate();
+
     let user;
 
     function testIfLogged() {
@@ -19,7 +22,9 @@ export function App() {
         localData = localData ? JSON.parse(localData) : false;
         localData
             ? handleToken(localData.id)
-                ? (user = localData)
+                ? ((user = localData),
+                  setUserData({ loggedIn: true }),
+                  navigate('/dashboard'))
                 : null
             : null;
     }
@@ -29,7 +34,7 @@ export function App() {
     }, [user]);
 
     return (
-        <UserProvider>
+        <>
             <GlobalStyle />
 
             <Routes>
@@ -56,6 +61,6 @@ export function App() {
                 pauseOnHover
                 theme="dark"
             />
-        </UserProvider>
+        </>
     );
 }

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { HeaderGComponent } from '../../components';
 import {
+    Container3,
     Container2,
     Container1,
     Text1,
@@ -22,8 +23,10 @@ export function DashboardPage() {
             />
             <Main>
                 <Container1>
-                    <Title2>Olá, {userData?.name}</Title2>
-                    <Text1>{userData?.course_module}</Text1>
+                    <Container3>
+                        <Title2>Olá, {userData?.name}</Title2>
+                        <Text1>{userData?.course_module}</Text1>
+                    </Container3>
                 </Container1>
                 <Container2>
                     <Title2>Que pena! Estamos em desenvolvimento</Title2>
