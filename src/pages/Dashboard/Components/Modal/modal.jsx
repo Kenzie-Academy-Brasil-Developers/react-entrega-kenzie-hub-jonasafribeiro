@@ -5,6 +5,7 @@ import { api } from '../../../../services/api';
 import { useForm } from 'react-hook-form';
 import {
     Button,
+    ButtonContainer,
     CloseButton,
     Container1,
     Container2,
@@ -19,13 +20,15 @@ import {
 import { UserContext } from '../../../../provider/UserContext';
 import { toast } from 'react-toastify';
 
-export function Modal({ setModal }) {
-    const { setUpdateUser } = useContext(UserContext);
+export function Modal({ setModal, type }) {
+    const { setUpdateUser, updateUser } = useContext(UserContext);
 
-    const formSchema = yup.object().shape({
-        title: yup.string().required('Título Obrigatório'),
-        status: yup.string().required(''),
-    });
+    const formSchema = !type.token
+        ? yup.object().shape({
+              title: yup.string().required('Título Obrigatório'),
+              status: yup.string().required(''),
+          })
+        : yup.object().shape({});
 
     const {
         register,
@@ -37,28 +40,69 @@ export function Modal({ setModal }) {
 
     const regNewTech = async (formData) => {
         const token = JSON.parse(localStorage.getItem('@KenzieHub')).token;
-        try {
-            await api.post(
-                '/users/techs',
-                {
-                    ...formData,
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
+        if (!type?.token) {
+            try {
+                await api.post(
+                    '/users/techs',
+                    {
+                        ...formData,
                     },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+                setUpdateUser(updateUser + 1);
+                setModal(false);
+                toast.success('Tech cadastrado com sucesso!');
+            } catch (err) {
+                toast.error(
+                    `Ocorreu um erro ao tentar adicionar: ${err.message}`
+                );
+            }
+        } else {
+            try {
+                if (
+                    formData.status === type.text &&
+                    (formData.title === type.title || formData.title === '')
+                ) {
+                    toast.error('Você deve alterar alguma informação antes');
+                } else {
+                    formData.status === type.text
+                        ? delete formData.status
+                        : null;
+                    await api.put(
+                        '/users/techs/' + type.token,
+                        { ...formData },
+                        { headers: { Authorization: `Bearer ${token}` } }
+                    );
+                    setUpdateUser(updateUser + 1);
+                    setModal(false);
+                    toast.success('Tech atualizado com sucesso!');
                 }
-            );
-            setUpdateUser(true);
-            setModal(false);
-            toast.success('Tech cadastrado com sucesso!');
-        } catch (err) {
-            toast.error(`Ocorreu um erro ao tentar adicionar: ${err.message}`);
+            } catch (err) {
+                toast.error(`Ocorreu um erro: ${err.message}`);
+            }
         }
     };
 
     const handleCloseModal = () => {
         setModal(false);
+    };
+
+    const handleDeleteTech = async () => {
+        const token = JSON.parse(localStorage.getItem('@KenzieHub')).token;
+        try {
+            await api.delete(`/users/techs/${type.token}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            toast.success('Tech excluida com sucesso!');
+            setUpdateUser(updateUser + 1);
+            setModal(false);
+        } catch (err) {
+            toast.error(`Ocorreu um erro ao tentar excluir: ${err.message}`);
+        }
     };
 
     return (
@@ -74,7 +118,7 @@ export function Modal({ setModal }) {
                     <Label htmlFor="title">Nome</Label>
                     <Input
                         type="text"
-                        placeholder="Título da Tecnologia"
+                        placeholder={type.title || 'Título da Tecnologia'}
                         {...register('title')}
                     />
                     {errors.title && (
@@ -83,6 +127,7 @@ export function Modal({ setModal }) {
 
                     <Label htmlFor="status">Selecionar status</Label>
                     <SelectArea
+                        value={type.text || 'Iniciante'}
                         name="status"
                         id="status"
                         {...register('status')}
@@ -91,8 +136,24 @@ export function Modal({ setModal }) {
                         <option>Intermediário</option>
                         <option>Avançado</option>
                     </SelectArea>
-
-                    <Button type="submit">Cadastrar Tecnologia</Button>
+                    {type === 'createTech' ? (
+                        <Button buttonType="register" type="submit">
+                            Cadastrar Tecnologia
+                        </Button>
+                    ) : (
+                        <ButtonContainer>
+                            <Button buttonType="save" type="submit">
+                                Salvar alterações
+                            </Button>
+                            <Button
+                                onClick={handleDeleteTech}
+                                buttonType="close"
+                                type="button"
+                            >
+                                Excluir
+                            </Button>
+                        </ButtonContainer>
+                    )}
                 </FormArea>
             </Container2>
         </Container1>

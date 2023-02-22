@@ -8,6 +8,7 @@ export const StyledListItem = styled.li`
     justify-content: space-between;
     background-color: var(--color-grey4);
     border-radius: 4px;
+    cursor: pointer;
     &:hover{
         background-color: var(--color-grey2);
     }

@@ -85,12 +85,26 @@ export const SelectArea = styled.select`
     border-radius: 4px;
 `
 
+export const ButtonContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+`
+
 export const Button = styled.button`
     color: #FFFFFF;
     font-size: 1rem;
     font-weight: 500;
     padding: 10.5px;
-    background-color: var(--color-primary);
     border-style: none;
     border-radius: 4px;
+
+    ${props => {
+        if (props.buttonType === 'register') {
+            return 'background-color: var(--color-primary);'
+        } else if (props.buttonType === 'save') {
+            return 'background-color: var(--color-primary-Disable); width: calc(70% - 5px);'
+        } else {
+            return 'background-color: var(--color-grey1); width: calc(30% - 5px);'
+        }
+    }}
 `

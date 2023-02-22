@@ -8,7 +8,7 @@ export const UserContext = createContext({});
 export const UserProvider = ({ children }) => {
     const [userData, setUserData] = useState('');
     const [login, setLogin] = useState('');
-    const [updateUser, setUpdateUser] = useState('');
+    const [updateUser, setUpdateUser] = useState(0);
     useEffect(() => {
         async function getUserInfo() {
             try {
@@ -26,7 +26,13 @@ export const UserProvider = ({ children }) => {
     }, [login, updateUser]);
     return (
         <UserContext.Provider
-            value={{ userData, setUpdateUser, setUserData, setLogin }}
+            value={{
+                userData,
+                updateUser,
+                setUpdateUser,
+                setUserData,
+                setLogin,
+            }}
         >
             {children}
         </UserContext.Provider>

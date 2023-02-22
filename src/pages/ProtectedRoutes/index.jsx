@@ -6,9 +6,7 @@ export const ProtectedRoutes = () => {
     const { userData } = useContext(UserContext);
     const navigate = useNavigate();
     useEffect(() => {
-        console.log('navigate');
         if (!userData || !userData.loggedIn) {
-            console.log('You must be logged in');
             navigate('/login');
         }
     }, []);

@@ -16,10 +16,10 @@ import { ListItem } from './Components/ListItem/listItem';
 
 export function DashboardPage() {
     const { userData, setUserData } = useContext(UserContext);
-    const [modal, setModal] = useState(false);
+    const [modal, setModal] = useState(0);
 
     const handleOpenCreateModal = () => {
-        setModal(true);
+        setModal('createTech');
     };
 
     return (
@@ -45,12 +45,18 @@ export function DashboardPage() {
                     </Container3>
                     <TechList>
                         {userData.techs?.map(({ title, status, id }) => (
-                            <ListItem title={title} text={status} key={id} />
+                            <ListItem
+                                handleClick={setModal}
+                                title={title}
+                                text={status}
+                                token={id}
+                                key={id}
+                            />
                         ))}
                     </TechList>
                 </Container2>
             </Main>
-            {modal && <Modal setModal={setModal} />}
+            {modal && <Modal type={modal} setModal={setModal} />}
         </>
     );
 }
