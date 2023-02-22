@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import YupPassword from 'yup-password';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';

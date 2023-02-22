@@ -1,18 +1,26 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { HeaderGComponent } from '../../components';
 import {
     Container3,
     Container2,
     Container1,
     Text1,
-    Text2,
     Title2,
     Main,
+    TechList,
+    Button,
 } from './dashboard.styled';
 import { UserContext } from '../../provider/UserContext';
+import { Modal } from './Components/Modal/modal';
+import { ListItem } from './Components/ListItem/listItem';
 
 export function DashboardPage() {
     const { userData, setUserData } = useContext(UserContext);
+    const [modal, setModal] = useState(false);
+
+    const handleOpenCreateModal = () => {
+        setModal(true);
+    };
 
     return (
         <>
@@ -29,13 +37,20 @@ export function DashboardPage() {
                     </Container3>
                 </Container1>
                 <Container2>
-                    <Title2>Que pena! Estamos em desenvolvimento</Title2>
-                    <Text2>
-                        Nossa aplicação está em desenvolvimento, em breve
-                        teremos novidades
-                    </Text2>
+                    <Container3>
+                        <Title2>Tecnologias</Title2>
+                        <Button onClick={handleOpenCreateModal} type="button">
+                            +
+                        </Button>
+                    </Container3>
+                    <TechList>
+                        {userData.techs?.map(({ title, status, id }) => (
+                            <ListItem title={title} text={status} key={id} />
+                        ))}
+                    </TechList>
                 </Container2>
             </Main>
+            {modal && <Modal setModal={setModal} />}
         </>
     );
 }
