@@ -45,7 +45,7 @@ export function DashboardPage() {
                         </Button>
                     </Container3>
                     <TechList>
-                        {userData?.techs > 0 ? (
+                        {userData?.techs?.length > 0 ? (
                             userData.techs?.map(({ title, status, id }) => (
                                 <ListItem
                                     handleClick={setModal}
