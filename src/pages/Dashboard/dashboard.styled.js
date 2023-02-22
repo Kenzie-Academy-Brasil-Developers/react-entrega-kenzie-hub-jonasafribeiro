@@ -20,7 +20,7 @@ export const Text2 = styled.p`
 
 export const Container1 = styled.div`
     display: flex;
-    gap: 550px;
+    gap: calc(100% - 300px);
     align-items: center;
     justify-content: center;
     width: 100%;

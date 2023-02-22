@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import YupPassword from 'yup-password';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -15,8 +15,9 @@ import {
     Text2,
 } from './form.styled';
 import { toast } from 'react-toastify';
+import { UserContext } from '../../provider/UserContext';
 
-export function LoginForm({ user }) {
+export function LoginForm({ user, callback }) {
     const navigate = useNavigate();
 
     const formSchema = yup.object().shape({
@@ -45,12 +46,16 @@ export function LoginForm({ user }) {
                 localStorage.setItem('@KenzieHub', JSON.stringify(temp));
                 user = temp;
                 toast.success('Logado com sucesso!');
+                callback(true);
+                setUserData({ loggedIn: true });
                 navigate('/dashboard');
             })
             .catch((err) => {
                 toast.error('Email ou senha inválido');
             });
     };
+
+    const { setUserData } = useContext(UserContext);
 
     return (
         <FormArea onSubmit={handleSubmit(loginFunction)}>

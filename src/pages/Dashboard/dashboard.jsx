@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { HeaderGComponent } from '../../components';
 import {
     Container2,
@@ -8,32 +8,18 @@ import {
     Title2,
     Main,
 } from './dashboard.styled';
-import { api } from '../../services/api';
+import { UserContext } from '../../provider/UserContext';
 
 export function DashboardPage() {
-    const [userData, setUserData] = useState();
-
-    useEffect(() => {
-        async function getUserInfo() {
-            try {
-                const { data } = await api.get(
-                    '/users/' +
-                        JSON.parse(localStorage.getItem('@KenzieHub')).id
-                );
-                console.log(data);
-                setUserData(data);
-            } catch (e) {
-                toast.error(e);
-            }
-        }
-        getUserInfo();
-    }, []);
-
-    console.log(userData);
+    const { userData, setUserData } = useContext(UserContext);
 
     return (
         <>
-            <HeaderGComponent page="dashboard" buttonText="Sair" />
+            <HeaderGComponent
+                logOut={setUserData}
+                page="dashboard"
+                buttonText="Sair"
+            />
             <Main>
                 <Container1>
                     <Title2>Olá, {userData?.name}</Title2>

@@ -1,9 +1,8 @@
 import axios from "axios";
-import { toast } from "react-toastify";
 
 export const api = axios.create({
     baseURL: "https://kenziehub.herokuapp.com",
-    timeout: 7000,
+    timeout: 10000,
 })
 
 export const handleToken = (id) => {

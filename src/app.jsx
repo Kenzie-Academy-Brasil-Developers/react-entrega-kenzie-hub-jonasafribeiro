@@ -2,12 +2,14 @@ import React from 'react';
 import 'react-toastify/ReactToastify.css';
 import { Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { GlobalStyle } from '../styles/globalStyles';
-import { LoginPage } from './login/login';
-import { RegisterPage } from './register/register';
-import { DashboardPage } from './Dashboard/dashboard';
+import { GlobalStyle } from './styles/globalStyles';
+import { LoginPage } from './pages/login/login';
+import { RegisterPage } from './pages/register/register';
+import { DashboardPage } from './pages/Dashboard/dashboard';
 import { useEffect } from 'react';
-import { handleToken } from '../services/api';
+import { handleToken } from './services/api';
+import { UserProvider } from './provider/UserContext';
+import { ProtectedRoutes } from './pages/ProtectedRoutes';
 
 export function App() {
     let user;
@@ -27,16 +29,18 @@ export function App() {
     }, [user]);
 
     return (
-        <>
+        <UserProvider>
             <GlobalStyle />
 
             <Routes>
                 <Route path="/login" element={<LoginPage user={user} />} />
                 <Route path="/register" element={<RegisterPage />} />
-                <Route
-                    path="/dashboard"
-                    element={<DashboardPage user={user} />}
-                />
+                <Route path="/dashboard" element={<ProtectedRoutes />}>
+                    <Route
+                        path="/dashboard"
+                        element={<DashboardPage user={user} />}
+                    />
+                </Route>
                 <Route path="*" element={<LoginPage user={user} />} />
             </Routes>
 
@@ -52,6 +56,6 @@ export function App() {
                 pauseOnHover
                 theme="dark"
             />
-        </>
+        </UserProvider>
     );
 }

@@ -4,7 +4,7 @@ import { LogoGComponent } from '..';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-export function Header({ page, buttonText }) {
+export function Header({ page, buttonText, logOut }) {
     const navigate = useNavigate();
     const handleClickBack = () => {
         navigate(-1);
@@ -13,6 +13,7 @@ export function Header({ page, buttonText }) {
     const handleClickExit = () => {
         localStorage.clear();
         navigate('/login');
+        logOut();
         toast.warning('Desconectado com sucesso!');
     };
 
